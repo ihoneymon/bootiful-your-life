@@ -1,0 +1,38 @@
+#default
+io:
+  honeymon:
+    name: 김지헌
+    age: 30
+    email: ihoneymon@gmail.com
+    homesite: http://honeymon.io
+
+---
+
+spring:
+  profiles: develop
+io:
+  honeymon:
+    name: Honeymon
+    age: 39
+    homesite: http://ihoney.pe.kr
+
+---
+
+spring:
+  profiles: beta
+io:
+  honeymon:
+    name: Honeymon
+    age: 39
+    homesite: http://java.ihoney.pe.kr
+
+---
+
+spring:
+  profiles: prod
+io:
+  honeymon:
+      name: 김지헌
+      age: 39
+      email: jiheon.kim@woowahan.com
+      homesite: http://honeymon.io

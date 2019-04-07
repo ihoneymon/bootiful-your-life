@@ -1,0 +1,154 @@
+= 실전에 써먹는 스프링 부트 이야기
+honeymon, ihoneymon@gmail.com
+v1.0.0, 2019-04-27
+
+:spring: 스프링
+:sb: {spring} 부트
+
+
+== 설치 및 실행
+[source,console]
+----
+$ git clone git@github.com:ihoneymon/bootiful-your-life.git
+$ cd bootiful-your-life
+
+// spring-boot-admin-server
+$ ./gradlew :bootiful-admin-server:bootRun
+
+// spring-boot-admin-client
+$ ./gradlew :bootiful-api:bootRun
+----
+
+== 실전에 써먹는 스프링 부트 이야기
+
+[[spring-boot-intro]]
+== 스프링 부트 소개
+스프링 부트를 한마디로 소개한다면,
+****
+**스프링 프레임워크**를 기반으로 한 개발 플랫폼
+****
+이라고 할 수 있습니다.
+
+그래서 스프링 부트를 잘 사용해보려면 **스프링** 프레임워크에 대한 개념과 작동원리를 이해하는 과정이 필요합니다. 물론 스프링 프로그래밍 모델을 알고 있으면 쉽게 사용할 수 있습니다.
+
+'스프링 프레임워크가 자바 표준 프레임워크가 되었다면, 스프링 부트는 자바 표준 개발플랫폼이 되었다' 고 말할 수 있다.
+
+.개발플랫폼
+[NOTE]
+====
+'개발플랫폼(Development Platform)'이라 불리기 위해서는 개발에 필요한 라이브러리 의존성 관리, 빌드 및 배포, 나아가서 운영을 위한 편의기능까지 제공할 수 있어야 한다. 스프링 부트는 개발 및 운영 전과정을 아우르는 기능을 제공한다. 그래서 최근 스프링 부트에 대한 관심이 높아지고 이용이 늘어나고 있다. 당분간은 자바 진영에서 스프링 부트를 압도할만한 개발플랫폼이 나올 것 같지 않다.
+====
+
+[[spring-boot-architecture]]
+== 스프링 부트 아키텍처
+스프링 부트는 동기방식의 '서블릿 스택'과 비동기 방식의 '리액티브 스택'을 모두 지원한다. 이런 스택의 양분은 스프링 프레임워크 5.0부터 리액터(Reactor)를 품으면서 가능해졌습니다.
+
+
+== 내가 생각하는 스프링 부트 사용수준
+|====
+|수준 | 설명
+
+|초급
+|``spring-boot-starter-web`` 을 기반으로 API를 ‘**어떻게든**’ 구현한다.
+
+|중급
+|자신에게 필요한 기능을 가진 starter를 ‘추가’하여 web 이외의 기능을 사용한다.
+
+|고급
+|스프링 부트가 제공하는 ‘관례’적 구성을 살피고 ‘외부 구성 속성’을 이용해서 사용하는 기능을 ‘스스로’ 제어한다.
+
+|특급
+| ‘**필요한 경우**’ 스프링 부트 자동구성을 비활성화하고 스프링 프레임워크나 스프링 부트가 제공하는 ‘**인터페이스**’를 구현하여 ‘**자기 입맛**’에 맞게 사용한다.
+|====
+
+
+[[bcd]]
+== BCD(Build - Code - Deploy)
+* **B**uild: 스프링 부트에서 Gradle/Maven 에서 동작하는 스프링 부트 플러그인 제공
+* **C**ode: 스프링 프로그래밍 모델을 제공하여 비즈니스 로직 구현에만 집중
+* **D**eploy: 빌드 과정에서 자기완비적인 실행가능한 JAR 형태로 패키징
+
+[[build]]
+=== Build
+작성한 코드를 실행할 수 있는 라이브러리와 함께 패키징(Packaging)하여 배포하기 위한 준비과정이다.
+
+[[build-tool]]
+==== 빌드도구
+
+.빌드도구(Build tool), 당신의 선택은?
+****
+link:https://gradle.org/[Gradle] Vs. link:http://maven.apache.org/[Maven]
+****
+
+[[build-script-dsl]]
+==== 빌드 스크립트
+.DSL, 당신의 선택은?
+****
+link:https://kotlinlang.org/[Kotlin] Vs. link:https://gradle.org/[Groovy]
+****
+
+`build.gradle.kts` +
+그레이들 빌드 스크립트 대세는 코틀린!! Gradle Kotlin DSL로 가자!!
+
+link:./build.gradle.kts[그레이들 스크립트 살펴보기]
+
+그루비의 자유로운 문법보다는 조금 제약이 있는 코틀린을 통해 통일성 있는 빌드스크립트로 거듭나기!
+
+이후에는 코틀린으로 서버사이드 프로그래밍까지...!
+
+[[build-dependencies-management]]
+==== 의존성 관리
+의존성 관리(Dependency management)는 빌드도구를 이용하는 우리가 바라는 가장 큰 기능 중 하나다. 중앙저장소(Central Repository) 혹은 넥서스를 설치하여 구성한 사설저장소(Private Repository)를 이용하여 의존성 라이브러리를 등록하고 프로젝트에 다운로드하여 코딩 및 배포를 위한 빌드시 이용한다.
+
+* spring-boot-parent & spring-boot-auto-configure & spring-boot-dependency
+
+[[build-packaging]]
+==== 패키징
+
+[[build-traditional-packaging]]
+==== 전통적 배포방식: WAR
+
+스프링 부트 플러그인
+
+* spring-boot-maven-plugin
+* spring-boot-gradle-plugin
+
+[[build-excutable-jar]]
+==== 자기완비적으로 실행가능한 JAR
+
+[[code]]
+=== Code
+
+[[code-spring-programming-model]]
+==== 스프링 프로그래밍 모델
+
+[[code-spring-boot-auto-configuration]]
+==== 스프링 부트 자동구성
+
+[[code-profile]]
+==== 프로파일
+
+[[code-profile-environment]]
+===== 실행환경
+
+[[code-profile-function]]
+===== 기능
+
+
+[[deployg]]
+=== Deploy
+배포를 했을 때 애플리케이션의 동작을 제어하는...
+
+=== 프로파일
+프로파일(``@Profile``)
+
+=== ``@ConfigurationProperties``
+* 기존 ``@Value``를 이용한 애플리케이션 속성이용
+* ``@ConfigurationProperties`` 를 이용한 애플리케이션 속성이용
+
+=== `spring-configuration-metadata.json`
+
+
+== 참고
+* link:https://github.com/codecentric/spring-boot-admin[Spring Boot admin]
+** link:http://codecentric.github.io/spring-boot-admin/2.1.4/[Spring Boot Admin Reference Guide]
