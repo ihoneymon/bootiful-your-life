@@ -2,6 +2,7 @@
 honeymon, ihoneymon@gmail.com
 v1.0.0, 2019-04-27
 
+:toc: left
 :spring: 스프링
 :sb: {spring} 부트
 
@@ -22,7 +23,7 @@ $ ./gradlew :bootiful-api:bootRun
 == 실전에 써먹는 스프링 부트 이야기
 
 [[spring-boot-intro]]
-== 스프링 부트 소개
+=== 스프링 부트 소개
 스프링 부트를 한마디로 소개한다면,
 ****
 **스프링 프레임워크**를 기반으로 한 개발 플랫폼
@@ -40,11 +41,11 @@ $ ./gradlew :bootiful-api:bootRun
 ====
 
 [[spring-boot-architecture]]
-== 스프링 부트 아키텍처
+=== 스프링 부트 아키텍처
 스프링 부트는 동기방식의 '서블릿 스택'과 비동기 방식의 '리액티브 스택'을 모두 지원한다. 이런 스택의 양분은 스프링 프레임워크 5.0부터 리액터(Reactor)를 품으면서 가능해졌습니다.
 
 
-== 내가 생각하는 스프링 부트 사용수준
+=== 내가 생각하는 스프링 부트 사용수준
 |====
 |수준 | 설명
 
@@ -63,17 +64,17 @@ $ ./gradlew :bootiful-api:bootRun
 
 
 [[bcd]]
-== BCD(Build - Code - Deploy)
+=== BCD(Build - Code - Deploy)
 * **B**uild: 스프링 부트에서 Gradle/Maven 에서 동작하는 스프링 부트 플러그인 제공
 * **C**ode: 스프링 프로그래밍 모델을 제공하여 비즈니스 로직 구현에만 집중
 * **D**eploy: 빌드 과정에서 자기완비적인 실행가능한 JAR 형태로 패키징
 
 [[build]]
-=== Build
+==== Build
 작성한 코드를 실행할 수 있는 라이브러리와 함께 패키징(Packaging)하여 배포하기 위한 준비과정이다.
 
 [[build-tool]]
-==== 빌드도구
+===== 빌드도구
 
 .빌드도구(Build tool), 당신의 선택은?
 ****
@@ -81,7 +82,7 @@ link:https://gradle.org/[Gradle] Vs. link:http://maven.apache.org/[Maven]
 ****
 
 [[build-script-dsl]]
-==== 빌드 스크립트
+===== 빌드 스크립트(Gradle DSL)
 .DSL, 당신의 선택은?
 ****
 link:https://kotlinlang.org/[Kotlin] Vs. link:https://gradle.org/[Groovy]
@@ -124,6 +125,13 @@ JVM이 있는 곳이면 어디서든 애플리케이션을 실행할 수 있다.
 
 [[code-spring-programming-model]]
 ==== 스프링 프로그래밍 모델
+스프링 프레임워크가 제공하는 컴포넌트 및 작동원리를 이해하면 누구나 애플리케이션을 손쉽게 만들 수 있다.
+
+* Component
+** @Repository
+** @Service
+** @Controller
+
 
 [[code-spring-boot-auto-configuration]]
 ==== 스프링 부트 자동구성
@@ -132,32 +140,41 @@ JVM이 있는 곳이면 어디서든 애플리케이션을 실행할 수 있다.
 
 [[code-profile]]
 ==== 프로파일
-* 소스코드
-* 애플리케이션 속성
+* 소스코드(`@Profile`)
+* 애플리케이션 속성(`application-{profile}.yml`)
 
-[[code-profile-environment]]
-===== 실행환경
 
-[[code-profile-function]]
-===== 기능
+==== 외부 구성
+애플리케이션을 패키징한 후에 내부 속성을 실행인자로 변경한다.
 
+==== ``@ConfigurationProperties``
+* 기존 ``@Value``를 이용한 애플리케이션 속성이용
+* ``@ConfigurationProperties`` 를 이용한 애플리케이션 속성이용
+
+==== `spring-configuration-metadata.json`
 
 [[deployg]]
 === Deploy
 배포를 했을 때 애플리케이션의 동작을 제어하는...
 
-=== 프로파일
-프로파일(``@Profile``)
 
-=== ``@ConfigurationProperties``
-* 기존 ``@Value``를 이용한 애플리케이션 속성이용
-* ``@ConfigurationProperties`` 를 이용한 애플리케이션 속성이용
-
-=== `spring-configuration-metadata.json`
-
-=== 액츄에이터
+==== 액츄에이터
+* ``spring-boot-starter-actuator`` 를 추가하면 기능을 제공!
+* HTTP 혹은 JMX를 통해서 애플리케이션의 상태를 모니터링하고 관리한다.
+* 애플리케이션 종단점(Endpoint) 제공
+* 마이크로미터(Micrometer)를 통한 다양한 모니터링 시스템 지원
+* 실제로는 Actuator Health Endpoint 만 남겨두고 나머지는 비활성화
+** PinPoint, New Relic 를 이용중인데 Java Agent
+* Spring Boot Admin
 
 
 == 참고
+* link:https://kotlinlang.org/[]
+* link:https://docs.gradle.org/current/userguide/kotlin_dsl.html[Gradle Kotlin DSL Primer]
+* link:https://spring.io/projects/spring-boot[Spring Boot]
+* link:https://spring.io/guides/tutorials/spring-boot-kotlin/[Building web applications with Spring Boot and Kotlin]
 * link:https://github.com/codecentric/spring-boot-admin[Spring Boot admin]
 ** link:http://codecentric.github.io/spring-boot-admin/2.1.4/[Spring Boot Admin Reference Guide]
+* link:https://www.javacodegeeks.com/2015/09/java-agents.html[Java Agents]
+* link:https://newrelic.com[New Relic]
+* link:https://github.com/naver/pinpoint[]

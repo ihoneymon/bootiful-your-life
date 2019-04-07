@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 
 @Configuration
-open class SecurityPermitAllConfig : WebSecurityConfigurerAdapter() {
+open class SecurityPermitAllConfiguration : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests().anyRequest().permitAll()
