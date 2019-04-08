@@ -97,28 +97,25 @@ link:./build.gradle.kts[그레이들 스크립트 살펴보기]
 
 이후에는 코틀린으로 서버사이드 프로그래밍까지...!
 
-[[build-dependencies-management]]
-==== 의존성 관리
-의존성 관리(Dependency management)는 빌드도구를 이용하는 우리가 바라는 가장 큰 기능 중 하나다. 중앙저장소(Central Repository) 혹은 넥서스를 설치하여 구성한 사설저장소(Private Repository)를 이용하여 의존성 라이브러리를 등록하고 프로젝트에 다운로드하여 코딩 및 배포를 위한 빌드시 이용한다.
-
-* spring-boot-parent & spring-boot-auto-configure & spring-boot-dependency
-
-[[build-packaging]]
-==== 패키징
+[[build-spring-boot-plugin]]
+==== 스프링 부트 그레이들 플러그인
 
 스프링 부트 플러그인
 
 * spring-boot-maven-plugin
 * spring-boot-gradle-plugin
 
-[[build-traditional-packaging]]
-==== 전통적 배포방식: WAR
-우리가 WAS 라고 부르는 웹애플리케이션 서버에서 실행하기 위핸 웹 애플리케이션을 만드는 과정
+===== 의존성관리
+의존성 관리(Dependency management)는 빌드도구를 이용하는 우리가 바라는 가장 큰 기능 중 하나다. 중앙저장소(Central Repository) 혹은 넥서스를 설치하여 구성한 사설저장소(Private Repository)를 이용하여 의존성 라이브러리를 등록하고 프로젝트에 다운로드하여 코딩 및 배포를 위한 빌드시 이용한다.
 
+* spring-boot-parent & spring-boot-auto-configure & spring-boot-dependency
 
-[[build-excutable-jar]]
-==== 자기완비적으로 실행가능한 JAR
-JVM이 있는 곳이면 어디서든 애플리케이션을 실행할 수 있다.
+[[build-packaging]]
+===== 실행가능한 압축 패키징
+* bootJar, bootWar
+* 전통적 배포방식 War
+* 자기완비적 실행가능한 Jar
+
 
 [[code]]
 === Code
@@ -127,7 +124,7 @@ JVM이 있는 곳이면 어디서든 애플리케이션을 실행할 수 있다.
 ==== 스프링 프로그래밍 모델
 스프링 프레임워크가 제공하는 컴포넌트 및 작동원리를 이해하면 누구나 애플리케이션을 손쉽게 만들 수 있다.
 
-* Component
+* @Component
 ** @Repository
 ** @Service
 ** @Controller
@@ -150,12 +147,13 @@ JVM이 있는 곳이면 어디서든 애플리케이션을 실행할 수 있다.
 ==== ``@ConfigurationProperties``
 * 기존 ``@Value``를 이용한 애플리케이션 속성이용
 * ``@ConfigurationProperties`` 를 이용한 애플리케이션 속성이용
+* ``spring-boot-configuration-processor`` 필요함
 
 ==== `spring-configuration-metadata.json`
 
 [[deployg]]
 === Deploy
-배포를 했을 때 애플리케이션의 동작을 제어하는...
+배포라기 보다는 배포 후 애플리케이션의 모니터링과 관리가 중심
 
 
 ==== 액츄에이터

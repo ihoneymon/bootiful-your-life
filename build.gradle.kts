@@ -9,7 +9,6 @@ subprojects {
     apply {
         plugin("kotlin")
         plugin("kotlin-kapt")
-        plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
     }
 
