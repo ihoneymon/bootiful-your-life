@@ -7,10 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version "1.3.21" apply false
 }
 
-allprojects { // subprojects 에 있던 항목을 이동
-    group = "io.honeymon.boot"
-    version = "1.0.0"
-
+allprojects {
     repositories { // 요게 없으면 Cannot resolve external dependency org.jetbrains.kotlin:kotlin-compiler-embeddable:1.3.21 because no repositories are defined. 발생
         jcenter() // mavenCentral 인건 상관없네.
     }
@@ -22,6 +19,9 @@ subprojects {
     apply(plugin = "kotlin-kapt")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
+
+    group = "io.honeymon.boot"
+    version = "1.0.0"
 
     dependencies {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
