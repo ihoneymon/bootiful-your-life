@@ -1,7 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    kotlin("jvm") version "1.3.21" // 변경 id("org.jetbrains.kotlin.jvm") -> kotlin("jvm")
+    id("org.jetbrains.kotlin.jvm") version "1.3.21"
     id("org.jetbrains.kotlin.kapt") version "1.3.21"
     id("org.springframework.boot") version "2.1.4.RELEASE" apply false
     id("org.jetbrains.kotlin.plugin.spring") version "1.3.21" apply false
