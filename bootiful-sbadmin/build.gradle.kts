@@ -1,5 +1,3 @@
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.2.71"
     id("org.jetbrains.kotlin.plugin.spring") version "1.2.71"
