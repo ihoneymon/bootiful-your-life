@@ -1,6 +1,4 @@
-package io.honeymon.boot.byl.api.service
-
-import org.springframework.stereotype.Service
+package io.honeymon.boot.byl.core.service
 
 
 interface BooleanService {

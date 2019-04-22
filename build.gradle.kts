@@ -8,7 +8,8 @@ plugins {
 }
 
 allprojects {
-    repositories { // 요게 없으면 Cannot resolve external dependency org.jetbrains.kotlin:kotlin-compiler-embeddable:1.3.21 because no repositories are defined. 발생
+    repositories {
+        // 요게 없으면 Cannot resolve external dependency org.jetbrains.kotlin:kotlin-compiler-embeddable:1.3.21 because no repositories are defined. 발생
         jcenter() // mavenCentral 인건 상관없네.
     }
 }
@@ -24,10 +25,12 @@ subprojects {
     version = "1.0.0"
 
     dependencies {
+//        implementation(platform("org.springframework.boot:spring-boot-dependencies:2.1.4.RELEASE"))
+
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-        compile("org.jetbrains.kotlin:kotlin-reflect")
-        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        compile("org.springframework.boot:spring-boot-starter-logging")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("org.springframework.boot:spring-boot-starter-logging")
 
         /**
          * @see <a href="https://kotlinlang.org/docs/reference/kapt.html">Annotation Processing with Kotlin</a>
@@ -35,7 +38,7 @@ subprojects {
         kapt("org.springframework.boot:spring-boot-configuration-processor")
         compileOnly("org.springframework.boot:spring-boot-configuration-processor")
 
-        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
     tasks {
@@ -60,7 +63,7 @@ subprojects {
 project("bootiful-core") {
 
     dependencies {
-        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
         runtimeOnly("com.h2database:h2")
     }
@@ -85,7 +88,7 @@ project(":bootiful-sbadmin") {
 
 
     dependencies {
-        compile(project(":bootiful-core"))
+        implementation(project(":bootiful-core"))
 
         compile("de.codecentric:spring-boot-admin-starter-server:2.1.4")
 
@@ -96,10 +99,10 @@ project(":bootiful-sbadmin") {
 
 project("bootiful-api") {
     dependencies {
-        compile(project(":bootiful-core"))
+        implementation(project(":bootiful-core"))
 
-        compile("org.springframework.boot:spring-boot-starter-web")
-        compile("org.springframework.boot:spring-boot-starter-security")
-        compile("de.codecentric:spring-boot-admin-starter-client:2.1.4")
+        implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation("org.springframework.boot:spring-boot-starter-security")
+        implementation("de.codecentric:spring-boot-admin-starter-client:2.1.4")
     }
 }

@@ -6,7 +6,6 @@ v1.0.0, 2019-04-27
 :spring: 스프링
 :sb: {spring} 부트
 
-
 == 설치 및 실행
 [source,console]
 ----
@@ -14,13 +13,15 @@ $ git clone git@github.com:ihoneymon/bootiful-your-life.git
 $ cd bootiful-your-life
 
 // spring-boot-admin-server
-$ ./gradlew :bootiful-admin-server:bootRun
+$ ./gradlew :bootiful-sbadmin:bootRun
 
-// spring-boot-admin-client
+// spring-boot-api
 $ ./gradlew :bootiful-api:bootRun
 ----
 
 == 실전에 써먹는 스프링 부트 이야기
+
+
 
 [[spring-boot-intro]]
 === 스프링 부트 소개
@@ -30,9 +31,9 @@ $ ./gradlew :bootiful-api:bootRun
 ****
 이라고 할 수 있습니다.
 
-그래서 스프링 부트를 잘 사용해보려면 **스프링** 프레임워크에 대한 개념과 작동원리를 이해하는 과정이 필요합니다. 물론 스프링 프로그래밍 모델을 알고 있으면 쉽게 사용할 수 있습니다.
+그래서 스프링 부트를 잘 사용하려면 **스프링** 프레임워크에 대한 개념과 작동원리를 이해하는 과정이 필요하다. 물론 스프링 프로그래밍 모델을 알고 있으면 더욱 손쉽게 사용할 수 있다.
 
-'스프링 프레임워크가 자바 표준 프레임워크가 되었다면, 스프링 부트는 자바 표준 개발플랫폼이 되었다' 고 말할 수 있다.
+'스프링 프레임워크가 자바 표준 프레임워크가 되었다면, 스프링 부트는 자바 표준 개발플랫폼이 되었다'고 말할 수 있다.
 
 .개발플랫폼
 [NOTE]
@@ -97,6 +98,16 @@ link:./build.gradle.kts[그레이들 스크립트 살펴보기]
 
 이후에는 코틀린으로 서버사이드 프로그래밍까지...!
 
+===== dependencies: `compile` vs `api` vs `implementation`
+* `compile`: Gradle 5.0 부터 Deprecated 선언되었으니 쓰지말자. ``implementation`` 을 사용하자.
+* `api`: 해당 모듈을 참조하는 다른 모듈에 클래스패스가 노출된다.
+* `implementation`: 해당 모듈 내에서만 사용가능하고 일반적으로 사용한다.
+
+[NOTE]
+====
+link:https://docs.gradle.org/current/userguide/java_plugin.html[]
+====
+
 [[build-spring-boot-plugin]]
 ==== 스프링 부트 그레이들 플러그인
 
@@ -140,7 +151,6 @@ link:./build.gradle.kts[그레이들 스크립트 살펴보기]
 * 소스코드(`@Profile`)
 * 애플리케이션 속성(`application-{profile}.yml`)
 
-
 ==== 외부 구성
 애플리케이션을 패키징한 후에 내부 속성을 실행인자로 변경한다.
 
@@ -150,6 +160,7 @@ link:./build.gradle.kts[그레이들 스크립트 살펴보기]
 * ``spring-boot-configuration-processor`` 필요함
 
 ==== `spring-configuration-metadata.json`
+``@ConfigurationProperties`` 선언된 클래스를
 
 [[deployg]]
 === Deploy
