@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt") version "1.3.21"
     id("org.springframework.boot") version "2.1.4.RELEASE" apply false
     id("org.jetbrains.kotlin.plugin.spring") version "1.3.21" apply false
+    id("com.gorylenko.gradle-git-properties") version "1.5.1" apply false
 }
 
 allprojects {
@@ -20,17 +21,17 @@ subprojects {
     apply(plugin = "kotlin-kapt")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+    apply(plugin = "com.gorylenko.gradle-git-properties")
 
     group = "io.honeymon.boot"
     version = "1.0.0"
 
     dependencies {
-//        implementation(platform("org.springframework.boot:spring-boot-dependencies:2.1.4.RELEASE"))
-
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        implementation("org.springframework.boot:spring-boot-starter-logging")
+        compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+        compile("org.jetbrains.kotlin:kotlin-reflect")
+        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        compile("org.springframework.boot:spring-boot-starter-logging")
 
         /**
          * @see <a href="https://kotlinlang.org/docs/reference/kapt.html">Annotation Processing with Kotlin</a>
@@ -38,7 +39,7 @@ subprojects {
         kapt("org.springframework.boot:spring-boot-configuration-processor")
         compileOnly("org.springframework.boot:spring-boot-configuration-processor")
 
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 
     tasks {
@@ -61,9 +62,8 @@ subprojects {
 }
 
 project("bootiful-core") {
-
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
 
         runtimeOnly("com.h2database:h2")
     }
@@ -85,12 +85,11 @@ project("bootiful-core") {
 }
 
 project(":bootiful-sbadmin") {
-
-
     dependencies {
-        implementation(project(":bootiful-core"))
+        compile(project(":bootiful-core"))
 
         compile("de.codecentric:spring-boot-admin-starter-server:2.1.4")
+        compile("org.springframework.boot:spring-boot-starter-web")
 
         // Spring Boot Admin-api 대신 클라우드 환경에서 사용한다면!
 //        compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-api")
@@ -99,10 +98,13 @@ project(":bootiful-sbadmin") {
 
 project("bootiful-api") {
     dependencies {
-        implementation(project(":bootiful-core"))
+        compile(project(":bootiful-core"))
 
-        implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation("org.springframework.boot:spring-boot-starter-security")
-        implementation("de.codecentric:spring-boot-admin-starter-client:2.1.4")
+        compile("de.codecentric:spring-boot-admin-starter-client:2.1.4")
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.springframework.boot:spring-boot-starter-security")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+
+        runtime("org.springframework.boot:spring-boot-devtools")
     }
 }

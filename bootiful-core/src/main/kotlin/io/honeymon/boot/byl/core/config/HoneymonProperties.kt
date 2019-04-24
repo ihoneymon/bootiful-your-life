@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 @ConfigurationProperties(prefix = "io.honeymon")
 class HoneymonProperties {
     lateinit var name: String
-    lateinit var age: String
+    var age: Long = 0
     lateinit var email: String
     lateinit var homesite: String
 }
