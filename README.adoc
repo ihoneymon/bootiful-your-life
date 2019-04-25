@@ -76,6 +76,7 @@ $ ./gradlew :bootiful-api:bootRun
 
 [[build-tool]]
 ===== 빌드도구
+빌드도구는 프로젝트에 필요한 의존성 라이브러리를 다운로드 받고 개발자가 작성한 코드를 컴파일하여 배포가능한 아카이브 파일로 패키징하는 역할을 수행한다. 자바쪽에서는 그레이들과 메이븐이 큰 세력을 형성하고 있다.
 
 .빌드도구(Build tool), 당신의 선택은?
 ****
@@ -84,6 +85,8 @@ link:https://gradle.org/[Gradle] Vs. link:http://maven.apache.org/[Maven]
 
 [[build-script-dsl]]
 ===== 빌드 스크립트(Gradle DSL)
+그레이들 DSL 은 처음에는 그루비(Groovy)를 사용했다. 코틀린에서 자신의 영향력을 키우기 위한 목적으로 '그레이들 코틀린 DSL'을 제공하여 그레이들 5.0에 채택되어 제공되기 시작한다. 그루비와는 다른 언어적 특징을 가지고 있는 코틀린이고 안드로이드 개발에서 널리쓰이고 있는 언어이기에 안드로이드 개발자들에게는 무척 친숙하게 다가갈 수 있을 것이다.
+
 .DSL, 당신의 선택은?
 ****
 link:https://kotlinlang.org/[Kotlin] Vs. link:https://gradle.org/[Groovy]
@@ -96,7 +99,20 @@ link:./build.gradle.kts[그레이들 스크립트 살펴보기]
 
 그루비의 자유로운 문법보다는 조금 제약이 있는 코틀린을 통해 통일성 있는 빌드스크립트로 거듭나기!
 
-이후에는 코틀린으로 서버사이드 프로그래밍까지...!
+[NOTE]
+====
+* link:https://docs.gradle.org/5.0/userguide/kotlin_dsl.html#sec:ide_support[]
+
+그레이들 개발팀에서는 자동 빌드불러오기(automatic build import)는 비활성화(disable)하고, 플러그인를 선언하는 스크립트 의존성은 자동적재(automatic reloading)을 활성화 하는 것을 권장한다.
+====
+
+[NOTE]
+====
+2 가지가 지원되어야 한다:
+
+* 코틀린 플러그인: 인텔리제이/안드로이드 스튜디오
+* 그레이들(5.0 이상)
+====
 
 ===== dependencies: `compile` vs `api` vs `implementation`
 * `compile`: Gradle 5.0 부터 Deprecated 선언되었으니 쓰지말자. ``implementation`` 을 사용하자.
@@ -111,22 +127,22 @@ link:https://docs.gradle.org/current/userguide/java_plugin.html[]
 [[build-spring-boot-plugin]]
 ==== 스프링 부트 그레이들 플러그인
 
-스프링 부트 플러그인
+스프링 부트 플러그인은 그레이들과 메이븐을 각각 지원한다. 각 빌드도구에서 프로젝트를 그대로 실행할 수 있는 bootRun 기능과 실행가능한 아카이브 파일을 만드는 bootJar 혹은 bootWar 기능을 제공한다.
 
 * spring-boot-maven-plugin
 * spring-boot-gradle-plugin
 
 ===== 의존성관리
-의존성 관리(Dependency management)는 빌드도구를 이용하는 우리가 바라는 가장 큰 기능 중 하나다. 중앙저장소(Central Repository) 혹은 넥서스를 설치하여 구성한 사설저장소(Private Repository)를 이용하여 의존성 라이브러리를 등록하고 프로젝트에 다운로드하여 코딩 및 배포를 위한 빌드시 이용한다.
+의존성 관리(Dependency management)는 빌드도구를 이용하는 우리가 바라는 가장 큰 기능 중 하나다.
+중앙저장소(Central Repository) 혹은 넥서스를 설치하여 구성한 사설저장소(Private Repository)를 이용하여 의존성 라이브러리를 등록하고 프로젝트에 다운로드하여 코딩 및 배포를 위한 빌드시 이용한다.
 
-* spring-boot-parent & spring-boot-auto-configure & spring-boot-dependency
+* `spring-boot-parent` & `spring-boot-auto-configure` & `spring-boot-dependency`
 
 [[build-packaging]]
 ===== 실행가능한 압축 패키징
 * bootJar, bootWar
 * 전통적 배포방식 War
 * 자기완비적 실행가능한 Jar
-
 
 [[code]]
 === Code
@@ -140,11 +156,16 @@ link:https://docs.gradle.org/current/userguide/java_plugin.html[]
 ** @Service
 ** @Controller
 
+스프링 부트는 컴포넌트 스캔방식으로 각 계층별 컴포넌트를 스캔하여 빈으로 등록한다. 이는 과거의 애플리케이션 컨텍스트파일(application-context.xml)을 한땀한땀 작성하던 때와는 조금 다른 접근방식을 가지게 된다.
+
 
 [[code-spring-boot-auto-configuration]]
 ==== 스프링 부트 자동구성
+스프링 부트의 자동구성과 관련된 내용은 ``spring-boot-auto-configure`` 모듈에 등록되어 있다. 그 내용을 살펴보면
+
 * ``@EnableAutoConfiguration`` + ``~AutoConfiguration``
 * ``@ComponentScan``
+* ``@Conditional~``
 
 [[code-profile]]
 ==== 프로파일

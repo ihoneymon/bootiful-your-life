@@ -22,3 +22,16 @@ class YesServiceTest {
         assertThat(booleanService.isYes()).isTrue()
     }
 }
+
+@ActiveProfiles("not")
+@RunWith(SpringRunner::class)
+@SpringBootTest(classes = [YesOrNotConfiguration::class])
+class NotServiceTest {
+    @Autowired
+    lateinit var booleanService: BooleanService
+
+    @Test
+    fun testYesOrNotYes() {
+        assertThat(booleanService.isYes()).isFalse()
+    }
+}

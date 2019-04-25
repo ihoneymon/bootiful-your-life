@@ -7,19 +7,19 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
 @Configuration
-open class YesOrNotConfiguration {
+class YesOrNotConfiguration {
     @Profile("yes")
     @Configuration
-    open class YesConfiguration {
+    class YesConfiguration {
         @Bean
-        open fun booleanService() = YesService()
+        fun booleanService() = YesService()
     }
 
-    @Profile(value = ["!yes"])
+    @Profile("!yes")
     @Configuration
-    open class notYesConfiguration {
+    class NotYesConfiguration {
         @Bean
-        open fun booleanService() = NotYesService()
+        fun booleanService() = NotYesService()
     }
 }
 

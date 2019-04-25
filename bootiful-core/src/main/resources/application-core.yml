@@ -13,8 +13,9 @@ spring:
 io:
   honeymon:
     name: Honeymon
-    age: 39
+    age: 26
     homesite: http://ihoney.pe.kr
+    #https://ihoney.pe.kr/4 2006
 
 ---
 
@@ -23,8 +24,9 @@ spring:
 io:
   honeymon:
     name: Honeymon
-    age: 39
+    age: 29
     homesite: http://java.ihoney.pe.kr
+    # https://java.ihoney.pe.kr/1 2009
 
 ---
 
@@ -34,5 +36,5 @@ io:
   honeymon:
       name: 김지헌
       age: 39
-      email: jiheon.kim@woowahan.com
       homesite: http://honeymon.io
+      # http://honeymon.io/notice/2018/02/26/remodeling-honeymon-io.html 2018
