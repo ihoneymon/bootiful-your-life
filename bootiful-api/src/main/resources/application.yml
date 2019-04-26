@@ -2,9 +2,10 @@ info:
   app:
     encoding: UTF-8
     name: bootiful-api
-spring.boot.admin.client.url: http://localhost:8080
+spring.boot.admin.client.url: http://127.0.0.1:8080
 server:
   port: 9090
+  address: 127.0.0.1
 management.endpoints.web.exposure.include: "*"
 spring:
   profiles:
